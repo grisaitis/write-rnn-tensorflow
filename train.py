@@ -59,7 +59,7 @@ def train(args):
             os.path.join(args.model_dir, 'log'), sess.graph)
 
         tf.global_variables_initializer().run()
-        saver = tf.train.Saver(tf.global_variables())
+        saver = tf.train.Saver(tf.global_variables(), max_to_keep=0)
         for e in range(args.num_epochs):
             sess.run(tf.assign(model.lr,
                                args.learning_rate * (args.decay_rate ** e)))
