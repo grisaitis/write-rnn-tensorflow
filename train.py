@@ -1,4 +1,5 @@
 import argparse
+import datetime
 import os
 import pickle
 import time
@@ -7,6 +8,11 @@ import tensorflow as tf
 
 from model import Model
 from utils import DataLoader
+
+
+def make_checkpoint_dir():
+    timestamp = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+    return "checkpoints_{}".format(timestamp)
 
 
 def main():
@@ -25,7 +31,7 @@ def main():
                         help='number of epochs')
     parser.add_argument('--save_every', type=int, default=500,
                         help='save frequency')
-    parser.add_argument('--model_dir', type=str, default='save',
+    parser.add_argument('--model_dir', type=str, default=make_checkpoint_dir(),
                         help='directory to save model to')
     parser.add_argument('--grad_clip', type=float, default=10.,
                         help='clip gradients at this value')
